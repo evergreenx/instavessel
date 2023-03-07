@@ -1,16 +1,25 @@
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useCallback, useMemo, useRef } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { Text } from "../components"
 import { isRTL } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import CustomField from "../components/CustomField"
+import BottomSheet from "@gorhom/bottom-sheet"
+
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
+
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  const snapPoints = useMemo(() => ["25%", "90%"], [])
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index)
+  }, [])
 
   return (
     <View style={$container}>
@@ -21,10 +30,20 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 
         <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
       </View>
-
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View style={$contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
+      {/* 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
         <Text tx="welcomeScreen.postscript" size="md" />
-      </View>
+      </View> */}
     </View>
   )
 })
@@ -32,14 +51,15 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: "#54487a",
+  paddingVertical: spacing.massive,
+  paddingHorizontal: spacing.large,
 }
 
 const $topContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 1,
   flexBasis: "57%",
-  justifyContent: "center",
-  paddingHorizontal: spacing.large,
+  // justifyContent: "center",
 }
 
 const $bottomContainer: ViewStyle = {
@@ -66,4 +86,9 @@ const $logo: TextStyle = {
   color: colors.palette.neutral100,
   fontWeight: "bold",
   fontFamily: typography.primary.bold,
+}
+
+const $contentContainer: ViewStyle = {
+  flex: 1,
+  alignItems: "center",
 }

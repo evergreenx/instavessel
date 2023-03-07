@@ -19,9 +19,10 @@ export default function CustomField() {
 const styles = StyleSheet.create({
   inputContainer: {
     alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: spacing.small,
+    elevation: 4,
     flexDirection: "row",
-    backgroundColor: "#625489",
     marginVertical: spacing.large,
     padding: spacing.medium,
     shadowOffset: {
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
-    elevation: 4,
 
   },
   linkinput: {
