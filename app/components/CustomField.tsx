@@ -1,6 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from "react-native"
 import React from "react"
-import { spacing } from "../theme"
+import { spacing, typography, colors } from "../theme"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { AntDesign } from "@expo/vector-icons"
 
@@ -19,7 +19,7 @@ export default function CustomField() {
 const styles = StyleSheet.create({
   inputContainer: {
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: colors.palette.neutral400,
     borderRadius: spacing.small,
     elevation: 4,
     flexDirection: "row",
@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
-
   },
   linkinput: {
     fontSize: 20,
-    height: 40,
+    height: 50,
+    width: "90%",
     marginLeft: spacing.small,
     shadowOffset: {
       width: 0,

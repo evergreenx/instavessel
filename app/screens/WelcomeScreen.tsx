@@ -6,20 +6,14 @@ import { isRTL } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import CustomField from "../components/CustomField"
-import BottomSheet from "@gorhom/bottom-sheet"
+
+import CustomBottomSheet from "../components/BottomSheet"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const snapPoints = useMemo(() => ["25%", "90%"], [])
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index)
-  }, [])
 
   return (
     <View style={$container}>
@@ -30,20 +24,9 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 
         <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
       </View>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View style={$contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheet>
-      {/* 
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
-        <Text tx="welcomeScreen.postscript" size="md" />
-      </View> */}
+  
+<CustomBottomSheet />
+
     </View>
   )
 })
